@@ -1,0 +1,130 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing:border-box ;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.main-body{
+    background: rgb(116, 112, 112);
+}
+.row {
+    background: white;
+    border-radius: 30px;
+}
+.img-1{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+/* .img-2{
+    height: 350px;
+    width: auto;
+} */
+
+.btn1{
+    height: 50px;
+    border: none;
+    outline: none;
+    color:white;
+    background-color: black;
+    width: 100%;
+    border-radius: 3px;
+    font-weight: bold;
+}
+.btn1:hover{
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.link{
+    text-decoration: none;
+}
+.btn2{
+    height: 50px;
+    border: none;
+    outline: none;
+    color:white;
+    background-color: rgb(16, 25, 121);
+    width: 100%;
+    border-radius: 3px;
+    font-weight: bold;
+}
+.btn3{
+    height: 50px;
+    border: none;
+    outline: none;
+    color:black;
+    background-color: white;
+    width: 100%;
+    border-radius: 3px;
+    font-weight: bold;
+    border: 1px black solid;
+}
+.btn2:hover{
+    background-color: rgb(45, 90, 187);
+    color: white;;
+    transition: 0.5s;
+}
+.btn3:hover{
+    background-color: black;
+    color: white;;
+    transition: 0.5s;
+}
+.img {
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+}
+.btn5{
+    height: 50px;
+    border: none;
+    outline: none;
+    color:white;
+    background-color: black;
+    width: 100%;
+    border-radius: 3px;
+    font-weight: bold;
+}
+.btn5:hover{
+    height: 50px;
+    border: none;
+    outline: none;
+    color:black;
+    background-color: rgb(245, 246, 254);
+    width: 100%;
+    border-radius: 3px;
+    font-weight: bold;
+    transition: 0.5s;
+    border: 1px black solid;
+}
+.search-form{
+    width: 650px;
+}
+.btn-1:hover{
+    color:white;
+    background-color: black;
+    transition: 0.5s;
+    border: none;
+
+}
+.btn-2:hover{
+    color:black;
+    background-color: white;
+    transition: 0.5s;
+    outline: none;
+
+}
+.srcollbar{
+    color: #3B3C3E;
+    font-size: 13px;
+
+}
+
+.srcollbar{
+    height:700px;
+    overflow:scroll;
+    overflow-x:hidden;
+}
+.title{
+    font-size: 20px;
+}

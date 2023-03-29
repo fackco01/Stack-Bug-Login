@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="main-body">
+<!--  Statr Navbar -->
+<nav class="nav navbar-expand-sm navbar-light bg-light mb-0  w-100">
+    <a href="home.html" class="navbar-brand mb-0 ">
+        <img src="img/logoremove.png" width="40" height="40 ">
+        Stack
+        <span class="h5"> Bug</span>
+    </a>
+    <button type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation" class="navbar-toggler"><span
+            class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a href="home.html" class="nav-link active">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="ask.html" class="nav-link active">
+                    Post
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="post.html" class="nav-link">
+                    Question
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="#" class="nav-link ">
+                    Tags
+                </a>
+            </li>
+            <li class="nav-item active mt-0">
+                <form class="search-form d-flex mb-lg-0">
+                    <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-dark input-sm " type="submit">Search</button>
+                </form>
+            </li>
+            <li class="nav-item active mt-0 mx-0">
+                <div class="click nav-item d-flex ms-auto mb-2 mb-lg-0 ">
+                    <div class="login-btn mx-2 border rounded-3 ">
+                        <a href="login.html" class="btn btn-light btn-1 ">Log in</a>
+                    </div>
+                    <div class="signup-btn border rounded-3 ">
+                        <a href="register_page.html" class="btn btn-register-1
+                                btn-dark btn-2">Sign up</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- End Navbar   -->
+<section class="my-4 mx-4">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="row" style="padding-left: 0">
+                <div class="col-lg-5" style="padding-left: 0">
+                    <img src="img/login-1.jpg" class="img-fluid img-1">
+                </div>
+                <div class="col-lg-7 px-5 py-5">
+                    <h1 class="font-weight-bold py-3">Sign in of StackBug</h1>
+                    <h4>Sign up</h4>
+                    <form action="/auth/register" method="post" class="mx-1 mx-md-4">
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="text" class="form-control" name="displayName" id="fullname" required/>
+                                <label class="form-label" for="fullname">Your Name</label>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fa-solid fa-user-secret fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="text" class="form-control" name="username" id="username" required/>
+                                <label class="form-label" for="username">User Name</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="email" class="form-control" name="email" id="email" required/>
+                                <label class="form-label" for="email">Your Email</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="password" class="form-control" name="password" id="password" required/>
+                                <label class="form-label" for="password">Password</label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input type="password" id="form3Example4cd" class="form-control"/>
+                                <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                            </div>
+                        </div>
+
+                        <div class="form-check d-flex justify-content-center mb-5">
+                            <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3"/>
+                            <label class="form-check-label" for="form2Example3">
+                                I agree all statements in <a href="#!">Terms of service</a>
+                            </label>
+                        </div>
+
+                        <div class="d-flex justify-content-center mx-4 ">
+                            <button class="btn5 btn-dark btn-lg ">
+                                Register
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
