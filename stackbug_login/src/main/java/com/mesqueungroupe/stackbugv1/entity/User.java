@@ -1,6 +1,5 @@
 package com.mesqueungroupe.stackbugv1.entity;
 
-import com.mesqueungroupe.stackbugv1.repository.RoleRepository;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -20,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j
+@Builder
 @EqualsAndHashCode
 @Table(name = "users")
 public class User implements UserDetails {
@@ -50,15 +50,28 @@ public class User implements UserDetails {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    private Role defaultRole;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        List<GrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority(role.getName()));
-        log.info(String.valueOf(list.get(0)));
-        return list;
+//        List<GrantedAuthority> list = new ArrayList<>();
+//        list.add(new SimpleGrantedAuthority(defaultRole.getName()));
+//        log.info(String.valueOf(list.get(0)));
+//        return list;
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override

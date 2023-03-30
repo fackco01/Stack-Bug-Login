@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.function.EntityResponse;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /*
  *@author: DuanHT
@@ -59,36 +60,15 @@ public class AppController {
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute("user") User user,
-                                          BindingResult biding,
-                                          HttpServletResponse response) {
-        if (biding.hasErrors()) {
-            return "register_page";
-        }
-        user.setCreatedAt(LocalDateTime.now());
+    public String processRegistrationForm(
+            @ModelAttribute RegisterRequest request,
+            HttpServletResponse response
+    ) throws Exception {
+        log.info("Register info : {}", request);
+        AuthenticationResponse responseReg = authService.register(request);
 
-        if (user.getRole() == null || user.getRole().getId() == null) {
-
-            //set default role is User Role
-            Role defaultRole = roleRepository.findById(1001)
-                    .orElseThrow(() -> new RuntimeException("Default role not found"));
-            user.setRole(defaultRole);
-        }
-        user.setPassword(encoder.encode(user.getPassword()));
-        userRepository.save(user);
-
-        Cookie c1 = new Cookie("access", jwtService.generateToken(service.loadUserByUsername(user.getEmail())));
-        c1.setMaxAge(10 * 60);
-        c1.setHttpOnly(true);
-        c1.setPath("/");
-        response.addCookie(c1);
-
-        Cookie c2 = new Cookie("refresh", jwtService.refreshToken(service.loadUserByUsername(user.getEmail())));
-        c2.setMaxAge(30 * 60);
-        c2.setHttpOnly(true);
-        c2.setPath("/");
-        response.addCookie(c2);
-        log.info("Register success", user);
+        log.info("Register Success");
+        authService.saveCookie(responseReg, response);
 
         return "redirect:/stackbug/home";
     }

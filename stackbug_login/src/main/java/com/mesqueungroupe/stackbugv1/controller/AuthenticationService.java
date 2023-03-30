@@ -2,6 +2,7 @@ package com.mesqueungroupe.stackbugv1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mesqueungroupe.stackbugv1.config.JwtService;
+import com.mesqueungroupe.stackbugv1.entity.Role;
 import com.mesqueungroupe.stackbugv1.entity.User;
 import com.mesqueungroupe.stackbugv1.repository.RoleRepository;
 import com.mesqueungroupe.stackbugv1.repository.UserRepository;
@@ -19,9 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -117,5 +117,54 @@ public class AuthenticationService {
             new ObjectMapper().writeValue(response.getOutputStream(), error);
         }
         return new AuthenticationResponse();
+    }
+
+    //Register
+    public AuthenticationResponse register(RegisterRequest request) throws Exception {
+        Optional<Role> defaultRoleOptional = roleRepository.findByName("ROLE_USER"); // thay "ROLE_USER" bằng tên role mặc định của bạn
+        if (!defaultRoleOptional.isPresent()) {
+            throw new Exception("Default role not found.");
+        }
+        Role defaultRole = defaultRoleOptional.get();
+        var user = User.builder()
+                .displayName(request.getDisplayName())
+                .email(request.getEmail())
+                .password(encoder.encode(request.getPassword()))
+                .username(request.getUsername())
+                .roles(new ArrayList<>())
+                .defaultRole(defaultRole)
+                .createdAt(LocalDateTime.now())
+                .enable(true)
+                .build();
+        try {
+            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+                log.error("Exist email {} in DB", user.getEmail());
+                log.info("info {}", userRepository.findByEmail(user.getEmail()));
+                return null;
+            } else {
+                Collection<String> roleStr = request.getRoles();
+                List<Role> role = new ArrayList<>();
+                roleStr.forEach(str -> {
+                    Role r = roleRepository.findByName(str).orElse(null);
+                    if (r != null) {
+                        role.add(r);
+                    }
+                });
+                log.info("List role register: {}", role);
+                role.forEach(r -> user.getRoles().add(r));
+                userRepository.save(user);
+                var jwtToken = service.generateToken(user);
+                var jwtRefresh = service.refreshToken(user);
+
+                log.info("Get getAuthorities: {}", user.getAuthorities());
+                log.info("Register Token access: {}", jwtToken);
+                log.info("Register Token refresh: {}", jwtRefresh);
+                return new AuthenticationResponse(jwtToken, jwtRefresh);
+            }
+        } catch (Exception e) {
+            log.error("Something wrong happen: {}", e.getMessage());
+            userRepository.delete(user);
+        }
+        return null;
     }
 }

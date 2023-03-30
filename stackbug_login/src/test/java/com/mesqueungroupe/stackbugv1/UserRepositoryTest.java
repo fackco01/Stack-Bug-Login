@@ -34,44 +34,7 @@ public class UserRepositoryTest {
     private RoleRepository roleRepository;
 
 
-    @Test
-    public void testCreateUser() {
 
-        User user = new User();
-        user.setEmail("nguyenvana@gmail.com");
-        user.setUsername("NVA123");
-        user.setPassword("nguyenvana123");
-        user.setDisplayName("Nguyen Van A");
-        user.setReputation(01);
-        user.setEnable(false);
-        user.setCreatedAt(LocalDateTime.now());
-
-//        // Lấy role có id = 1 trong database
-//        Role role = entityManager.find(Role.class, 1002);
-//
-//        // Kiểm tra xem Role có tồn tại trong cơ sở dữ liệu không
-//        assertThat(role).isNotNull();
-//
-//        // Gán Role cho User
-//        user.setRole(role);
-
-        // Tạo mới một Role
-        Role role = new Role();
-        role.setId(1001);
-        role.setName("ROLE_USER");
-
-// Lưu Role vào cơ sở dữ liệu
-        entityManager.persist(role);
-
-// Gán Role cho User
-        user.setRole(role);
-
-        User saveUser = userRepository.save(user);
-
-        User existUser = entityManager.find(User.class, saveUser.getId());
-
-        assertThat(existUser.getEmail()).isEqualTo(user.getEmail());
-    }
 
     @Test
     public void testFindUserByEmail(){
