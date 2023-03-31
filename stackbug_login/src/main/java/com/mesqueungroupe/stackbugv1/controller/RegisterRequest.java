@@ -17,5 +17,5 @@ public class RegisterRequest {
     private String password;
     private String username;
 
-    private Collection<String> roles = new ArrayList<>();
+    private String role;
 }

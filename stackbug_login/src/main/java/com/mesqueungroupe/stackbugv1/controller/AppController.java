@@ -7,6 +7,7 @@ import com.mesqueungroupe.stackbugv1.repository.RoleRepository;
 import com.mesqueungroupe.stackbugv1.repository.UserRepository;
 import com.mesqueungroupe.stackbugv1.service.user.CustomUserServiceImp;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,7 +71,7 @@ public class AppController {
         log.info("Register Success");
         authService.saveCookie(responseReg, response);
 
-        return "redirect:/stackbug/home";
+        return "home";
     }
 
     @GetMapping("/registration-success")
@@ -84,25 +85,6 @@ public class AppController {
     public String authenticateForm() {
         return "login";
     }
-
-//    @PostMapping("/authentication")
-//    public String authenticate(
-//            @ModelAttribute AuthenticationRequest request, HttpServletResponse response) {
-//        AuthenticationResponse responseLogin = authService.authenticate(request);
-//    log.info("dcm");
-//        Cookie cookie = new Cookie("uid", String.valueOf(userRepository.findByEmail(request.getEmail()).get().getId()));
-//        cookie.setMaxAge(10 * 60);
-//        cookie.setPath("/");
-//        response.addCookie(cookie);
-//
-//        if (responseLogin.getRefresh() == null && responseLogin.getToken() == null) {
-//            log.error("Login fail controller");
-//        } else {
-//            log.info("Login Success");
-//            authService.saveCookie(responseLogin, response);
-//        }
-//        return "redirect:/stackbug/home";
-//    }
 
     @PostMapping("/authentication")
     public String authenticate(
@@ -122,5 +104,13 @@ public class AppController {
             authService.saveCookie(responseLogin, response);
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/checkEmail")
+    public ResponseEntity<User> isEmailExist(HttpServletRequest request) {
+        String email = request.getParameter("email");
+//        log.info("Check email from ajax: {}", email);
+        User user = authService.isUserExist(email);
+        return ResponseEntity.ok(user);
     }
 }

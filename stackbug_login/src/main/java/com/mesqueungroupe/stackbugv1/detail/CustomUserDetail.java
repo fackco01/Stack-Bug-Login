@@ -29,16 +29,15 @@ public class CustomUserDetail implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 //
-//        List<GrantedAuthority> list = new ArrayList<>();
-//        list.add(new SimpleGrantedAuthority(roleRepository.findById(1001).get().getName()));
-//        log.info(String.valueOf(list.get(0)));
-//        return list;
-        List<GrantedAuthority> authorities = user.getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(roleRepository.findById(1001).get().getName()));
+        log.info(String.valueOf(list.get(0)));
+        return list;
+//        List<GrantedAuthority> authorities = user.getRole()
+//                .stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getName()))
+//                .collect(Collectors.toList());
 
-        return authorities;
     }
 
     @Override

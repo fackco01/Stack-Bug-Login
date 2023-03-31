@@ -1,11 +1,15 @@
 package com.mesqueungroupe.stackbugv1.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import jakarta.persistence.*;
 
 @Entity
-@Data
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "role")
 public class Role {
     @Id

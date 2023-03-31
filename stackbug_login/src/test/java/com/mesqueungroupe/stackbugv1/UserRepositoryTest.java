@@ -1,7 +1,6 @@
 package com.mesqueungroupe.stackbugv1;
 
 import com.mesqueungroupe.stackbugv1.detail.CustomUserDetail;
-import com.mesqueungroupe.stackbugv1.entity.Admin;
 import com.mesqueungroupe.stackbugv1.entity.Role;
 import com.mesqueungroupe.stackbugv1.entity.User;
 import com.mesqueungroupe.stackbugv1.repository.RoleRepository;
@@ -11,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
@@ -79,7 +77,7 @@ public class UserRepositoryTest {
         assertThat(role).isNotNull();
 
         // Gán Role cho User
-        admin.setRole(role);
+//        admin.setRole(role);
 
 //        // Tạo mới một Role
 //        Role role = new Role();

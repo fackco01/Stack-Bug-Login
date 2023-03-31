@@ -121,18 +121,15 @@ public class AuthenticationService {
 
     //Register
     public AuthenticationResponse register(RegisterRequest request) throws Exception {
-        Optional<Role> defaultRoleOptional = roleRepository.findByName("ROLE_USER"); // thay "ROLE_USER" bằng tên role mặc định của bạn
-        if (!defaultRoleOptional.isPresent()) {
-            throw new Exception("Default role not found.");
-        }
+        Optional<Role> defaultRoleOptional = Optional.ofNullable(roleRepository.findByName("ROLE_USER")
+                .orElseThrow(() -> new Exception("Default role not found."))); // thay "ROLE_USER" bằng tên role mặc định của bạn
         Role defaultRole = defaultRoleOptional.get();
         var user = User.builder()
                 .displayName(request.getDisplayName())
                 .email(request.getEmail())
                 .password(encoder.encode(request.getPassword()))
                 .username(request.getUsername())
-                .roles(new ArrayList<>())
-                .defaultRole(defaultRole)
+                .role(defaultRole)
                 .createdAt(LocalDateTime.now())
                 .enable(true)
                 .build();
@@ -142,16 +139,7 @@ public class AuthenticationService {
                 log.info("info {}", userRepository.findByEmail(user.getEmail()));
                 return null;
             } else {
-                Collection<String> roleStr = request.getRoles();
-                List<Role> role = new ArrayList<>();
-                roleStr.forEach(str -> {
-                    Role r = roleRepository.findByName(str).orElse(null);
-                    if (r != null) {
-                        role.add(r);
-                    }
-                });
-                log.info("List role register: {}", role);
-                role.forEach(r -> user.getRoles().add(r));
+                log.info(user.getAuthorities().toString());
                 userRepository.save(user);
                 var jwtToken = service.generateToken(user);
                 var jwtRefresh = service.refreshToken(user);
@@ -164,6 +152,19 @@ public class AuthenticationService {
         } catch (Exception e) {
             log.error("Something wrong happen: {}", e.getMessage());
             userRepository.delete(user);
+        }
+        return null;
+    }
+
+
+    public User isUserExist(String email) {
+        List<User> userList = userRepository.findAll();
+        for (int j = 0; j < userList.size(); j++){
+            if (userList.get(j).getEmail().equals(email)){
+                return userList.get(j);
+            }else {
+                return null;
+            }
         }
         return null;
     }
