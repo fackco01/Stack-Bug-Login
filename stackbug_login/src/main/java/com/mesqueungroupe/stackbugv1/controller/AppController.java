@@ -88,7 +88,7 @@ public class AppController {
 
     @PostMapping("/authentication")
     public String authenticate(
-            @ModelAttribute AuthenticationRequest request, HttpServletResponse response) {
+            @ModelAttribute AuthenticationRequest request, HttpServletResponse response, Model model) {
         AuthenticationResponse responseLogin = authService.authenticate(request);
         log.info("dcm");
         log.info(request.getEmail() + " - " + request.getPassword());
@@ -103,6 +103,7 @@ public class AppController {
             log.info("Login Success");
             authService.saveCookie(responseLogin, response);
         }
+        model.addAttribute("auth", request);
         return "redirect:/";
     }
 

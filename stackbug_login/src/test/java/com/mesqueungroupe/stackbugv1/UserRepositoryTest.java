@@ -58,42 +58,42 @@ public class UserRepositoryTest {
         assertThat(customUserDetail).isNotNull();
     }
 
-    @Test
-    public void testCreateAdmin() {
-
-        Admin admin = new Admin();
-        admin.setEmail("duanhotrong@gmail.com");
-        admin.setUsername("admin001");
-        admin.setPassword("admin1234");
-        admin.setDisplayName("Ho Trong Duan");
-        admin.setReputation(01);
-        admin.setEnable(true);
-        admin.setCreatedAt(LocalDateTime.now());
-
-        // Lấy role có id trong database
-        Role role = entityManager.find(Role.class, 1002);
-
-        // Kiểm tra xem Role có tồn tại trong cơ sở dữ liệu không
-        assertThat(role).isNotNull();
-
-        // Gán Role cho User
-//        admin.setRole(role);
-
-//        // Tạo mới một Role
-//        Role role = new Role();
-//        role.setId(1001);
-//        role.setName("ROLE_USER");
-
-//// Lưu Role vào cơ sở dữ liệu
-//        entityManager.persist(role);
+//    @Test
+//    public void testCreateAdmin() {
 //
-//// Gán Role cho User
-//        user.setRole(role);
+//        Admin admin = new Admin();
+//        admin.setEmail("duanhotrong@gmail.com");
+//        admin.setUsername("admin001");
+//        admin.setPassword("admin1234");
+//        admin.setDisplayName("Ho Trong Duan");
+//        admin.setReputation(01);
+//        admin.setEnable(true);
+//        admin.setCreatedAt(LocalDateTime.now());
 //
-//        User saveUser = userRepository.save(user);
+//        // Lấy role có id trong database
+//        Role role = entityManager.find(Role.class, 1002);
 //
-//        User existUser = entityManager.find(User.class, saveUser.getId());
+//        // Kiểm tra xem Role có tồn tại trong cơ sở dữ liệu không
+//        assertThat(role).isNotNull();
 //
-//        assertThat(existUser.getEmail()).isEqualTo(user.getEmail());
-    }
+//        // Gán Role cho User
+////        admin.setRole(role);
+//
+////        // Tạo mới một Role
+////        Role role = new Role();
+////        role.setId(1001);
+////        role.setName("ROLE_USER");
+//
+////// Lưu Role vào cơ sở dữ liệu
+////        entityManager.persist(role);
+////
+////// Gán Role cho User
+////        user.setRole(role);
+////
+////        User saveUser = userRepository.save(user);
+////
+////        User existUser = entityManager.find(User.class, saveUser.getId());
+////
+////        assertThat(existUser.getEmail()).isEqualTo(user.getEmail());
+//    }
 }

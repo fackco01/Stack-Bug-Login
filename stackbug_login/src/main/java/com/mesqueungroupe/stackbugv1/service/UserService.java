@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface UserService {
     public String updateUser(Long id);
     public String deleteUser(Long id);
+    public User findUserByEmail(String email);
 }

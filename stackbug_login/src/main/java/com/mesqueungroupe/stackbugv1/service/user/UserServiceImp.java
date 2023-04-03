@@ -32,4 +32,10 @@ public class UserServiceImp implements UserService {
         userRepository.deleteById(id);
         return "Delete data successfully!!!!!!";
     }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+    }
 }
